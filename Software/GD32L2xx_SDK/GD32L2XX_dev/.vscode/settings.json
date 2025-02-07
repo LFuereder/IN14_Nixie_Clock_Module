@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "gd32l23x.h": "c",
+        "gd32l23x_gpio.h": "c",
+        "uart_com.h": "c",
+        "stdbool.h": "c",
+        "btn_nixie.h": "c"
+    }
+}

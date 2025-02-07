@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "gdbPath": "/usr/bin/gdb-multiarch",
+            "cwd": "${workspaceFolder}",
+            "executable": "./build/GD32L2xx.elf",
+            "request": "launch",
+            "svdFile": "GD32L23x.svd",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "jlink",
+            "serverpath": "/usr/bin/JLinkGDBServerCLExe",
+            "device": "GD32L233CCT6",
+            "interface": "swd",
+            "liveWatch": {
+                "enabled": true,
+                "samplesPerSecond": 4
+              } 
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "HV5122PG-G")(type "KiCad")(uri "${KIPRJMOD}/HV5122PG-G.kicad_sym")(options "")(descr ""))
+  (lib (name "gd32l233cct6")(type "KiCad")(uri "${KIPRJMOD}/gd32l233cct6.kicad_sym")(options "")(descr ""))
+  (lib (name "in-14_nixie")(type "KiCad")(uri "${KIPRJMOD}/in-14_nixie.kicad_sym")(options "")(descr ""))
+  (lib (name "LTV-352T_LTO")(type "KiCad")(uri "${KIPRJMOD}/LTV-352T_LTO.kicad_sym")(options "")(descr ""))
+)
