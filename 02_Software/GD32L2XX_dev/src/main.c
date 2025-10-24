@@ -11,6 +11,7 @@
 #include "../inc/BTN_nixie.h"
 
 #define ever ;;
+#define ENABLE_COM false
 
 rtc_parameter_struct current_time;
 
@@ -63,56 +64,50 @@ void get_clk_position(bool* show_minutes)
     gpio_bit_reset(GPIOA, GPIO_PIN_13);
 }
 
-void display_hours()
-{
-    for(ever)
-    {
-        uint8_t current_hour=0;
-        if(uart_updateNumber(&current_hour))
-        {
-            reset_tube(NIXIE_IN14_1);
-            reset_tube(NIXIE_IN14_2);
-
-            display_number(current_hour);
-        }
-
-    }
-}
-
 int main(void)
 {  
     /* initialize NIXIE tube drivers */
     init_nixie(NIXIE_IN14_1);
     init_nixie(NIXIE_IN14_2);
 
+#if ENABLE_COM
     /* initialize the com */
     configure_DMA();
     init_UART();
-    init_buttons();
     configure_UART_IRQ();
+#endif
 
-    /*interrupt configuration */
+    /* initialize buttons */
+    init_buttons();
+
+#if ENABLE_COM
+    /* UART interrupt configuration */
     nvic_irq_enable(USART0_IRQn, 0);
+#endif
+
+    /* button interrupt configuration */
     nvic_irq_enable(EXTI0_IRQn, 0);
     nvic_irq_enable(EXTI1_IRQn, 0);
     nvic_irq_enable(EXTI4_IRQn, 0);
     nvic_irq_enable(EXTI5_9_IRQn, 0);
 
+    /* check clock position */
     get_clk_position(&show_minutes);
-    if(!show_minutes) display_hours();
 
     init_RTC(config_hour, config_minute);
 
-    while(1)
+    for(ever)
     {
         if(clock_cfg_mode) configure_time();
 
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
-        
+
+#if ENABLE_COM
         transmit_current_hour(config_minute);
+#endif
 
         rtc_current_time_get(&current_time);
-        display_time(&current_time);
+        display_time(&current_time, show_minutes);
     }
 }

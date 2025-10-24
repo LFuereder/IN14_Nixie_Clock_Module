@@ -2,6 +2,7 @@
 #define IN14NIXIE
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <gd32l23x.h>
 #include <gd32l23x_gpio.h>
 
@@ -22,10 +23,10 @@ struct nixie_Pindef
 
 /* public Methods */
 void init_nixie(enum nixie_tube);
-
 void reset_tube(enum nixie_tube);
 
-void display_time(rtc_parameter_struct* time);
+/* display functions */
+void display_time(rtc_parameter_struct* time, bool show_minutes);
 void display_number(uint8_t number);
 
 #endif

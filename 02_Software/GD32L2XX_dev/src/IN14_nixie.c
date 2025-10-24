@@ -190,10 +190,21 @@ void reset_tube(enum nixie_tube tube)
     }
 }
 
-void display_time(rtc_parameter_struct * time)
+void display_time(rtc_parameter_struct * time, bool show_minutes)
 {
-    uint8_t decimal = (time->second / 16);
-    uint8_t digit = (time->second % 16);
+    uint8_t decimal;
+    uint8_t digit;
+
+    if(show_minutes)
+    {
+        decimal = (time->second / 16);
+        digit = (time->second % 16);
+    }
+    else
+    {
+        decimal = (time->minute / 16);
+        digit = (time->minute % 16);
+    }
 
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
     gpio_bit_set(NIXIE_2_PINS[digit].PORT, NIXIE_2_PINS[digit].PIN);
