@@ -34,17 +34,12 @@ OF SUCH DAMAGE.
 
 #include <stdbool.h>
 #include "gd32l23x_it.h"
+#include "../../inc/BTN_nixie.h"
 
 #define BTN_DEBOUNCE_TIME 1280
 
 extern uint8_t rx_count;
 extern uint8_t receive_flag;
-
-/* global variables for clock configuration */
-extern bool clock_cfg_mode;
-extern uint8_t config_state;
-extern uint8_t config_hour; 
-extern uint8_t config_minute; 
 
 /*!
     \brief      this function handles NMI exception
@@ -136,8 +131,8 @@ void EXTI0_HANDLER(void)
 
     if(RESET != exti_interrupt_flag_get(EXTI_0))
     {
-        exti_interrupt_flag_clear(EXTI_0);
-        config_minute++;
+        btn_1_irq_handler();
+        exti_interrupt_flag_clear(EXTI_0);    
     }
 }
 
@@ -155,7 +150,7 @@ void EXTI1_HANDLER(void)
     if(RESET != exti_interrupt_flag_get(EXTI_1))
     {
         exti_interrupt_flag_clear(EXTI_1);
-        clock_cfg_mode = !clock_cfg_mode;
+        btn_0_irq_handler();
     }
 }
 
@@ -172,8 +167,8 @@ void EXTI4_HANDLER(void)
     
     if(RESET != exti_interrupt_flag_get(EXTI_4))
     {
+        btn_3_irq_handler();
         exti_interrupt_flag_clear(EXTI_4);
-        clock_cfg_mode = !clock_cfg_mode;
     }
 }
 
@@ -190,7 +185,7 @@ void EXTI5_to_9_HANDLER(void)
     
     if(RESET != exti_interrupt_flag_get(EXTI_5))
     {
+        btn_2_irq_handler();
         exti_interrupt_flag_clear(EXTI_5);
-        clock_cfg_mode = !clock_cfg_mode;
     }
 }

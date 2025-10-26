@@ -13,6 +13,17 @@ uint32_t RTCSRC_FLAG = 0;
 
 ErrStatus status;
 
+/* since the RTC initialisation expects BCD format, 
+   we need to adjust the number interpretation from 
+   10-basis to 16-basis. I.e., config_hour = 12 needs
+   to be interpreted as 0x12. */
+static uint8_t convert_to_BCD(uint8_t number)
+{
+     uint8_t decimal = (number / 10) << 4;
+    uint8_t digit = (number % 10);
+    return decimal + number;
+}
+
 ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
 {
     rtc_initparam.factor_asyn = prescaler_a;
@@ -23,8 +34,8 @@ ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
     rtc_initparam.display_format = RTC_24HOUR;
 
 
-    rtc_initparam.hour = config_hour;
-    rtc_initparam.minute = config_minute;
+    rtc_initparam.hour = config_hour; //convert_to_BCD(config_hour);
+    rtc_initparam.minute = convert_to_BCD(config_minute);
     rtc_initparam.second = config_second;
 
     ErrStatus status = rtc_init(&rtc_initparam);

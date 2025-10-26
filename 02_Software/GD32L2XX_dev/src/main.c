@@ -24,26 +24,6 @@ uint8_t config_minute = 0;
 bool show_minutes = false;
 bool clock_cfg_mode = false;
 
-
-void configure_time()
-{
-    for(ever)
-    {
-        reset_tube(NIXIE_IN14_1);
-        reset_tube(NIXIE_IN14_2);
-
-        display_number(config_minute);
-        transmit_current_hour(config_hour);
-
-        if(!clock_cfg_mode)
-        {
-            break;
-        }
-    }
-
-    init_RTC(config_hour, config_minute);
-}
-
 void get_clk_position(bool* show_minutes)
 {
     gpio_mode_set(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_13);
@@ -85,12 +65,6 @@ int main(void)
     nvic_irq_enable(USART0_IRQn, 0);
 #endif
 
-    /* button interrupt configuration */
-    nvic_irq_enable(EXTI0_IRQn, 0);
-    nvic_irq_enable(EXTI1_IRQn, 0);
-    nvic_irq_enable(EXTI4_IRQn, 0);
-    nvic_irq_enable(EXTI5_9_IRQn, 0);
-
     /* check clock position */
     get_clk_position(&show_minutes);
 
@@ -98,15 +72,12 @@ int main(void)
 
     for(ever)
     {
-        if(clock_cfg_mode) configure_time();
-
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
 
 #if ENABLE_COM
         transmit_current_hour(config_minute);
 #endif
-
         rtc_current_time_get(&current_time);
         display_time(&current_time, show_minutes);
     }

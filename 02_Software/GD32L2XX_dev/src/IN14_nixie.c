@@ -197,13 +197,15 @@ void display_time(rtc_parameter_struct * time, bool show_minutes)
 
     if(show_minutes)
     {
-        decimal = (time->second / 16);
-        digit = (time->second % 16);
+        decimal = (time->minute / 16);
+        digit = (time->minute % 16);
     }
     else
     {
-        decimal = (time->minute / 16);
-        digit = (time->minute % 16);
+        /* no need for backwards-BCD conversion, 
+           since the value is already in decimal */
+        decimal = (time->hour / 10);
+        digit = (time->hour % 10);
     }
 
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
