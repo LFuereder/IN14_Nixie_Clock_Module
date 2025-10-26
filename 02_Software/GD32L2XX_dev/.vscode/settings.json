@@ -4,6 +4,8 @@
         "gd32l23x_gpio.h": "c",
         "uart_com.h": "c",
         "stdbool.h": "c",
-        "btn_nixie.h": "c"
+        "btn_nixie.h": "c",
+        "gd32l23x_it.h": "c",
+        "gd32l23x_exti.h": "c"
     }
 }
