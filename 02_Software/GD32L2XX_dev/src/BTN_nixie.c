@@ -16,6 +16,10 @@ extern uint8_t config_state;
 extern uint8_t config_hour; 
 extern uint8_t config_minute; 
 
+/* global indicator, weather the controller 
+   shall display minutes or hours. */
+extern bool show_minutes;
+
 /* The Button 3 handler serves as a configuration mode for the clock. 
    If the button is tapped, the clock shall display the current values of 
    hour and minute and wait for termination via Button 0. */
@@ -30,9 +34,24 @@ void btn_3_irq_handler()
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
 
-        display_number(config_hour);
+        if(show_minutes)
+        {
+            display_number(config_minute);
+        }
+        else
+        {
+            display_number(config_hour);
+        }
+
 #if ENABLE_COM
-        transmit_current_hour(config_hour);
+        if(show_minutes)
+        {
+            transmit_current_hour(config_minute);
+        }
+        else
+        {
+            transmit_current_hour(config_hour);
+        }
 #endif
     }
     
@@ -43,25 +62,55 @@ void btn_3_irq_handler()
 
 void btn_2_irq_handler()
 {
-    if(config_hour>0)
+    if(show_minutes)
     {
-        config_hour--;
+        if(config_minute>0)
+        {
+            config_minute--;
+        }
+        else
+        {
+            config_minute=59;
+        }
     }
     else
     {
-        config_hour=24;
+        if(config_hour>0)
+        {
+            config_hour--;
+        }
+        else
+        {
+            config_hour=24;
+        }
     }
+    
     return;
 }
 
 void btn_1_irq_handler()
 {
-    if(config_hour<24) 
+    if(show_minutes)
     {
-        config_hour++;
+        if(config_minute<59) 
+        {
+            config_minute++;
+        }
+        else 
+        {
+            config_minute=0;
+        }
     }
-    else {
-        config_hour=0;
+    else
+    {
+        if(config_hour<24) 
+        {
+            config_hour++;
+        }
+        else 
+        {
+            config_hour=0;
+        }
     }
 
     return;
