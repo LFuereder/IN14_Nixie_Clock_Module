@@ -312,7 +312,4 @@ FlagStatus exti_interrupt_flag_get(exti_line_enum linex);
 /* clear EXTI line x interrupt pending flag */
 void exti_interrupt_flag_clear(exti_line_enum linex);
 
-void exit_interrupt_priority_get(exti_line_enum linex, int* priority);
-void exti_interrupt_priority_set(exti_line_enum linex, int priority);
-
 #endif /* gd32l23x_EXTI_H */

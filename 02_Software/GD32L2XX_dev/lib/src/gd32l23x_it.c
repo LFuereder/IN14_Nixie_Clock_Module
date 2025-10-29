@@ -34,12 +34,18 @@ OF SUCH DAMAGE.
 
 #include <stdbool.h>
 #include "gd32l23x_it.h"
-#include "../../inc/BTN_nixie.h"
 
 #define BTN_DEBOUNCE_TIME 1280
 
 extern uint8_t rx_count;
 extern uint8_t receive_flag;
+
+/* custom irq handler defined in BTN_nixie.h */
+extern void btn_3_irq_handler();
+extern void btn_2_irq_handler();
+extern void btn_1_irq_handler();
+extern void btn_0_irq_handler();
+
 
 /*!
     \brief      this function handles NMI exception

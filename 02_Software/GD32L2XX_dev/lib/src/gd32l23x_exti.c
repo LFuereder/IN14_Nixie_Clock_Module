@@ -250,14 +250,3 @@ void exti_interrupt_flag_clear(exti_line_enum linex)
 {
     EXTI_PD = (uint32_t)linex;
 }
-
-void exit_interrupt_priority_get(exti_line_enum linex, int* priority)
-{
-    priority = IRQ_GetPriority(linex);
-    return;
-}
-
-void exti_interrupt_priority_set(exti_line_enum linex, int priority)
-{
-    return;
-}
