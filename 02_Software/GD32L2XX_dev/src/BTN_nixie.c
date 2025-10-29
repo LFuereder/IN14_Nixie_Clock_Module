@@ -11,7 +11,6 @@
 #define BTN_3_PRIORITY 3
 
 /* global variables for clock configuration */
-//extern bool clock_cfg_mode;
 extern uint8_t config_state;
 extern uint8_t config_hour; 
 extern uint8_t config_minute; 
@@ -59,7 +58,6 @@ void btn_3_irq_handler()
     return;
 }
 
-
 void btn_2_irq_handler()
 {
     if(show_minutes)
@@ -81,7 +79,7 @@ void btn_2_irq_handler()
         }
         else
         {
-            config_hour=24;
+            config_hour=23;
         }
     }
     
@@ -103,7 +101,7 @@ void btn_1_irq_handler()
     }
     else
     {
-        if(config_hour<24) 
+        if(config_hour<23) 
         {
             config_hour++;
         }
@@ -121,6 +119,7 @@ void btn_0_irq_handler()
     config_state = 0;
     return;
 }
+
 
 void configure_btn_irq(exti_line_enum linex)
 {

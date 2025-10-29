@@ -5,27 +5,22 @@
 
 __IO uint32_t prescaler_a = 0, prescaler_s = 0;
 
-rtc_parameter_struct rtc_initparam;
-
-uint8_t config_second = 0;
-
-uint32_t RTCSRC_FLAG = 0; 
-
 ErrStatus status;
 
 /* since the RTC initialisation expects BCD format, 
    we need to adjust the number interpretation from 
-   10-basis to 16-basis. I.e., config_hour = 12 needs
+   10-basis to 16-basis. I.e., config_minute = 12 needs
    to be interpreted as 0x12. */
 static uint8_t convert_to_BCD(uint8_t number)
 {
      uint8_t decimal = (number / 10) << 4;
     uint8_t digit = (number % 10);
-    return decimal + number;
+    return decimal + digit;
 }
 
 ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
 {
+    rtc_parameter_struct rtc_initparam = {};
     rtc_initparam.factor_asyn = prescaler_a;
     rtc_initparam.factor_syn = prescaler_s;
     rtc_initparam.year = 24;
@@ -33,10 +28,9 @@ ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
     rtc_initparam.date = 9;
     rtc_initparam.display_format = RTC_24HOUR;
 
-
-    rtc_initparam.hour = config_hour; //convert_to_BCD(config_hour);
+    rtc_initparam.hour = config_hour;
     rtc_initparam.minute = convert_to_BCD(config_minute);
-    rtc_initparam.second = config_second;
+    rtc_initparam.second = 0;
 
     ErrStatus status = rtc_init(&rtc_initparam);
 
@@ -77,7 +71,7 @@ void init_RTC(uint8_t config_hour, uint8_t config_minute)
     pmu_backup_write_enable();
 
     /* get RTC clock entry selection */
-    RTCSRC_FLAG = GET_BITS(RCU_BDCTL, 8, 9);
+    uint32_t RTCSRC_FLAG = GET_BITS(RCU_BDCTL, 8, 9);
     ErrStatus status = RTC_pre_config();
 
     if(status != SUCCESS)

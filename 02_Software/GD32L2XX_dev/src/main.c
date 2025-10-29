@@ -13,6 +13,7 @@
 #define ever ;;
 #define ENABLE_COM false
 
+/* global object containing the current time */
 rtc_parameter_struct current_time;
 
 /* global variables for clock configuration */
@@ -20,9 +21,8 @@ uint8_t config_state = 0;
 uint8_t config_hour = 0; 
 uint8_t config_minute = 0;
 
-/* Nixie Clock position and status flags: */
+/* Nixie Clock position and status flag */
 bool show_minutes = false;
-bool clock_cfg_mode = false;
 
 void get_clk_position(bool* show_minutes)
 {
