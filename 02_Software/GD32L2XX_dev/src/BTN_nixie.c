@@ -1,9 +1,9 @@
 #include "../inc/BTN_nixie.h"
-#include "../inc/IN14_nixie.h"
-#include "../inc/RTC_nixie.h"
 
 #define SYSCTL_EXTI_SS1_PB4     0x40010000U
 #define ever ;;
+
+#define ENABLE_COM true
 
 #define BTN_0_PRIORITY 1
 #define BTN_1_PRIORITY 2
@@ -24,7 +24,7 @@ extern bool show_minutes;
    hour and minute and wait for termination via Button 0. */
 void btn_3_irq_handler()
 {
-    /*set config state bit to switch to configuration mode. If it should 
+    /* set config state bit to switch to configuration mode. If it should 
     be switched back, press BTN_0 (see btn_0_irq_handler())*/
     config_state = 1;
 
@@ -41,7 +41,8 @@ void btn_3_irq_handler()
         {
             display_number(config_hour);
         }
-
+    }
+    
 #if ENABLE_COM
         if(show_minutes)
         {
@@ -52,8 +53,7 @@ void btn_3_irq_handler()
             transmit_current_hour(config_hour);
         }
 #endif
-    }
-    
+
     init_RTC(config_hour, config_minute);
     return;
 }

@@ -1,5 +1,7 @@
 #include"../inc/IN14_nixie.h"
+#define NIXIE_MIRROR_LAYOUT false
 
+#ifndef NIXIE_MIRROR_LAYOUT
 const nixie_Pindef_T NIXIE_1_PINS[12] =
 {
     (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_14},    // 0
@@ -15,7 +17,25 @@ const nixie_Pindef_T NIXIE_1_PINS[12] =
     (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_3},     // ._
     (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_13}     // _.
 };
+#else 
+const nixie_Pindef_T NIXIE_1_PINS[12] =
+{
+    (nixie_Pindef_T){.PORT=GPIOC, .PIN=GPIO_PIN_12},    // 0
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_14},    // 1
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_15},    // 2
+    (nixie_Pindef_T){.PORT=GPIOC, .PIN=GPIO_PIN_6},     // 3
+    (nixie_Pindef_T){.PORT=GPIOC, .PIN=GPIO_PIN_7},     // 4
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_8},     // 5    
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_9},     // 6
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_10},    // 7
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_11},    // 8
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_12},    // 9
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_13},    // _.
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_3},     // ._
+};
+#endif
 
+#ifndef NIXIE_MIRROR_LAYOUT
 const nixie_Pindef_T NIXIE_2_PINS[12] =
 {
     (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_3},     // 0
@@ -31,6 +51,23 @@ const nixie_Pindef_T NIXIE_2_PINS[12] =
     (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_12},    // ._
     (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_2}      // _.
 };
+#else
+const nixie_Pindef_T NIXIE_2_PINS[12] =
+{
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_11},    // 0
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_3},     // 1
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_4},     // 2
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_5},     // 3
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_6},     // 4
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_7},     // 5
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_0},     // 6
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_1},     // 7
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_2},     // 8
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_10},    // 9
+    (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_2},     // ._
+    (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_12},    // _.
+};
+#endif
 
 void init_pins(enum nixie_tube tube)
 {
@@ -217,6 +254,11 @@ void display_number(uint8_t number)
     uint8_t decimal = (number / 10);
     uint8_t digit = (number % 10);
 
+#ifndef NIXIE_MIRROR_LAYOUT
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
     gpio_bit_set(NIXIE_2_PINS[digit].PORT, NIXIE_2_PINS[digit].PIN);
+#else
+    gpio_bit_set(NIXIE_1_PINS[digit].PORT, NIXIE_1_PINS[digit].PIN);
+    gpio_bit_set(NIXIE_2_PINS[decimal].PORT, NIXIE_2_PINS[decimal].PIN);
+#endif
 }

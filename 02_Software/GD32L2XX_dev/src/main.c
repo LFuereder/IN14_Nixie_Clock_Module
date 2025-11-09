@@ -11,7 +11,7 @@
 #include "../inc/BTN_nixie.h"
 
 #define ever ;;
-#define ENABLE_COM false
+#define ENABLE_COM true
 
 /* global object containing the current time */
 rtc_parameter_struct current_time;
@@ -75,9 +75,6 @@ int main(void)
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
 
-#if ENABLE_COM
-        transmit_current_hour(config_minute);
-#endif
         rtc_current_time_get(&current_time);
         display_time(&current_time, show_minutes);
     }
