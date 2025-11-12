@@ -24,6 +24,27 @@ uint8_t config_minute = 0;
 /* Nixie Clock position and status flag */
 bool show_minutes = false;
 
+
+#if ENABLE_COM
+void check_for_new_timeValues()
+{
+            if(show_minutes)
+        {
+            if(update_current_time(&config_hour))
+            {
+                init_RTC(config_hour, config_minute);
+            }
+        }
+        else
+        {
+            if(update_current_time(&config_minute))
+            {
+                init_RTC(config_hour, config_minute);
+            }
+        }
+}
+#endif
+
 void get_clk_position(bool* show_minutes)
 {
     gpio_mode_set(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_13);
@@ -68,12 +89,17 @@ int main(void)
     /* check clock position */
     get_clk_position(&show_minutes);
 
+    /* initialize RTC */
     init_RTC(config_hour, config_minute);
 
     for(ever)
     {
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
+
+#if ENABLE_COM
+        check_for_new_timeValues();
+#endif
 
         rtc_current_time_get(&current_time);
         display_time(&current_time, show_minutes);

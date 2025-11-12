@@ -245,8 +245,13 @@ void display_time(rtc_parameter_struct * time, bool show_minutes)
         digit = (time->hour % 10);
     }
 
+#ifndef NIXIE_MIRROR_LAYOUT
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
     gpio_bit_set(NIXIE_2_PINS[digit].PORT, NIXIE_2_PINS[digit].PIN);
+#else
+    gpio_bit_set(NIXIE_1_PINS[digit].PORT, NIXIE_1_PINS[digit].PIN);
+    gpio_bit_set(NIXIE_2_PINS[decimal].PORT, NIXIE_2_PINS[decimal].PIN);
+#endif
 }
 
 void display_number(uint8_t number)

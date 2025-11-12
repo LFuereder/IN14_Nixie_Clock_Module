@@ -12,8 +12,8 @@ void configure_UART_IRQ();
 
 void configure_DMA();
 
-bool uart_updateNumber(uint8_t* current_hour);
+bool update_current_time(uint8_t* time_value);
 
-void transmit_current_hour(uint8_t current_hour);
+void transmit_current_time(uint8_t time_value);
 
 #endif

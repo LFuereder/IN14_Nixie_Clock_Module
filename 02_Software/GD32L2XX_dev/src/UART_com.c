@@ -2,32 +2,33 @@
 
 #define USART0_RDATA_ADDRESS      ((uint32_t)&USART_RDATA(USART0))
 
+extern bool show_minutes;
+
 uint8_t rxbuffer[256];
 uint8_t rx_count = 0;
 uint8_t tx_count = 0;
 __IO uint8_t receive_flag = 0;
 
-bool uart_updateNumber(uint8_t* current_hour)
+bool update_current_time(uint8_t* time_value)
 {
     if(receive_flag == SET) 
     {     
         receive_flag = RESET;
-        *current_hour = rxbuffer[0];
-
+        *time_value = rxbuffer[0];
         return true;
     }
 
     return false;
 }
 
-void transmit_current_hour(uint8_t current_hour)
+void transmit_current_time(uint8_t time_value)
 {
-    usart_data_transmit(USART0, current_hour);
+    usart_data_transmit(USART0, time_value);
 }
 
 void configure_UART_IRQ()
 {
-    /*wait IDLEF set and clear it*/
+    /* wait IDLEF set and clear it */
     while(RESET == usart_flag_get(USART0, USART_FLAG_IDLE)) 
     {
         __asm("nop");

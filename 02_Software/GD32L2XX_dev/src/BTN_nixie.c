@@ -19,9 +19,10 @@ extern uint8_t config_minute;
    shall display minutes or hours. */
 extern bool show_minutes;
 
-/* The Button 3 handler serves as a configuration mode for the clock. 
-   If the button is tapped, the clock shall display the current values of 
-   hour and minute and wait for termination via Button 0. */
+/* The Button 3 handler serves as a configuration 
+   mode for the clock. If the button is tapped, the 
+   clock shall display the current values of hour 
+   and minute and wait for termination via Button 0. */
 void btn_3_irq_handler()
 {
     /* set config state bit to switch to configuration mode. If it should 
@@ -46,11 +47,11 @@ void btn_3_irq_handler()
 #if ENABLE_COM
         if(show_minutes)
         {
-            transmit_current_hour(config_minute);
+            transmit_current_time(config_minute);
         }
         else
         {
-            transmit_current_hour(config_hour);
+            transmit_current_time(config_hour);
         }
 #endif
 
