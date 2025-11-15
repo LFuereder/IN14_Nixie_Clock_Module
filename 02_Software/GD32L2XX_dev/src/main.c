@@ -16,10 +16,8 @@
 /* global object containing the current time */
 rtc_parameter_struct current_time;
 
-/* global variables for clock configuration */
+/* global variable for clock configuration */
 uint8_t config_state = 0;
-uint8_t config_hour = 0; 
-uint8_t config_minute = 0;
 
 /* Nixie Clock position and status flag */
 bool show_minutes = false;
@@ -28,18 +26,18 @@ bool show_minutes = false;
 #if ENABLE_COM
 void check_for_new_timeValues()
 {
-            if(show_minutes)
+        if(show_minutes)
         {
-            if(update_current_time(&config_hour))
+            if(update_current_time(&current_time.hour))
             {
-                init_RTC(config_hour, config_minute);
+                init_RTC(current_time);
             }
         }
         else
         {
-            if(update_current_time(&config_minute))
+            if(update_current_time(&current_time.minute))
             {
-                init_RTC(config_hour, config_minute);
+                init_RTC(current_time);
             }
         }
 }
@@ -67,6 +65,11 @@ void get_clk_position(bool* show_minutes)
 
 int main(void)
 {  
+    /* setup default time values */
+    current_time.hour=0;
+    current_time.minute=0;
+    current_time.second=0;
+
     /* initialize NIXIE tube drivers */
     init_nixie(NIXIE_IN14_1);
     init_nixie(NIXIE_IN14_2);
@@ -90,7 +93,7 @@ int main(void)
     get_clk_position(&show_minutes);
 
     /* initialize RTC */
-    init_RTC(config_hour, config_minute);
+    init_RTC(current_time);
 
     for(ever)
     {

@@ -7,18 +7,7 @@ __IO uint32_t prescaler_a = 0, prescaler_s = 0;
 
 ErrStatus status;
 
-/* since the RTC initialisation expects BCD format, 
-   we need to adjust the number interpretation from 
-   10-basis to 16-basis. I.e., config_minute = 12 needs
-   to be interpreted as 0x12. */
-static uint8_t convert_to_BCD(uint8_t number)
-{
-     uint8_t decimal = (number / 10) << 4;
-    uint8_t digit = (number % 10);
-    return decimal + digit;
-}
-
-ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
+ErrStatus rtc_setup(rtc_parameter_struct current_time)
 {
     rtc_parameter_struct rtc_initparam = {};
     rtc_initparam.factor_asyn = prescaler_a;
@@ -28,8 +17,8 @@ ErrStatus rtc_setup(uint8_t config_hour, uint8_t config_minute)
     rtc_initparam.date = 9;
     rtc_initparam.display_format = RTC_24HOUR;
 
-    rtc_initparam.hour = config_hour;
-    rtc_initparam.minute = convert_to_BCD(config_minute);
+    rtc_initparam.hour = current_time.hour;
+    rtc_initparam.minute = current_time.minute;
     rtc_initparam.second = 0;
 
     ErrStatus status = rtc_init(&rtc_initparam);
@@ -61,7 +50,7 @@ ErrStatus RTC_pre_config()
     return status;
 }
 
-void init_RTC(uint8_t config_hour, uint8_t config_minute)
+void init_RTC(rtc_parameter_struct current_time)
 {
     /* enable PMU and BKP clock */
     rcu_periph_clock_enable(RCU_PMU);
@@ -86,6 +75,6 @@ void init_RTC(uint8_t config_hour, uint8_t config_minute)
         /* backup data register value is not correct or not yet programmed
         or RTC clock source is not configured (when the first time the program 
         is executed or data in RCU_BDCTL is lost due to Vbat feeding) */
-        rtc_setup(config_hour, config_minute);
+        rtc_setup(current_time);
     }
 }

@@ -11,6 +11,7 @@ __IO uint8_t receive_flag = 0;
 
 bool update_current_time(uint8_t* time_value)
 {
+    /* if the flag is set, we received a new time value */
     if(receive_flag == SET) 
     {     
         receive_flag = RESET;

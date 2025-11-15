@@ -239,10 +239,8 @@ void display_time(rtc_parameter_struct * time, bool show_minutes)
     }
     else
     {
-        /* no need for backwards-BCD conversion, 
-           since the value is already in decimal */
-        decimal = (time->hour / 10);
-        digit = (time->hour % 10);
+        decimal = (time->hour / 16);
+        digit = (time->hour % 16);
     }
 
 #ifndef NIXIE_MIRROR_LAYOUT

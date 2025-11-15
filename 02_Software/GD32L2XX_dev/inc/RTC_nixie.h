@@ -8,6 +8,6 @@
 
 #include "IN14_nixie.h"
 
-void init_RTC(uint8_t config_hour, uint8_t config_minute);
+void init_RTC(rtc_parameter_struct current_time);
 
 #endif

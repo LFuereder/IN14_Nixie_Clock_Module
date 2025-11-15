@@ -12,12 +12,33 @@
 
 /* global variables for clock configuration */
 extern uint8_t config_state;
-extern uint8_t config_hour; 
-extern uint8_t config_minute; 
+extern rtc_parameter_struct current_time; 
 
 /* global indicator, weather the controller 
    shall display minutes or hours. */
 extern bool show_minutes;
+
+/* Since the RTC initialisation expects BCD format, 
+   we need to adjust the number interpretation from 
+   10-basis to 16-basis. I.e., config_minute = 12 needs
+   to be interpreted as 0x12. */
+static uint8_t convert_to_BCD(uint8_t number)
+{
+    uint8_t decimal = (number / 10) << 4;
+    uint8_t digit = (number % 10);
+    return decimal + digit;
+}
+
+/* Since we need to adjust the current time in the 
+   config mode in decimal, we need a function to 
+   convert the current time back to decimal. */
+static uint8_t convert_to_DEC(uint8_t number)
+{
+    uint8_t decimal = (number / 16) * 10;
+    uint8_t digit = (number % 16);
+    return decimal + digit;
+}
+
 
 /* The Button 3 handler serves as a configuration 
    mode for the clock. If the button is tapped, the 
@@ -34,87 +55,95 @@ void btn_3_irq_handler()
         reset_tube(NIXIE_IN14_1);
         reset_tube(NIXIE_IN14_2);
 
-        if(show_minutes)
-        {
-            display_number(config_minute);
-        }
-        else
-        {
-            display_number(config_hour);
-        }
+        display_time(&current_time, show_minutes);
     }
     
 #if ENABLE_COM
         if(show_minutes)
         {
-            transmit_current_time(config_minute);
+            transmit_current_time(current_time.minute);
         }
         else
         {
-            transmit_current_time(config_hour);
+            transmit_current_time(current_time.hour);
         }
 #endif
 
-    init_RTC(config_hour, config_minute);
+    init_RTC(current_time);
     return;
 }
 
+/* The Button 2 handler reduces the value of the 
+   currently displayed number. */
 void btn_2_irq_handler()
 {
     if(show_minutes)
     {
-        if(config_minute>0)
+        if(current_time.minute > 0)
         {
-            config_minute--;
+            uint8_t current_minute = convert_to_DEC(current_time.minute);
+            current_minute--;
+            current_time.minute = convert_to_BCD(current_minute);
         }
         else
         {
-            config_minute=59;
+            current_time.minute = convert_to_BCD(59);
         }
     }
     else
     {
-        if(config_hour>0)
+        if(current_time.hour > 0)
         {
-            config_hour--;
+            uint8_t current_hour = convert_to_DEC(current_time.hour);
+            current_hour--;
+            current_time.hour = convert_to_BCD(current_hour);
         }
         else
         {
-            config_hour=23;
+            current_time.hour = convert_to_BCD(23);
         }
     }
     
     return;
 }
 
+/* The Button 1 handler increases the value of the 
+   currently display number. */
 void btn_1_irq_handler()
 {
     if(show_minutes)
     {
-        if(config_minute<59) 
+        if(current_time.minute < convert_to_BCD(59)) 
         {
-            config_minute++;
+            uint8_t current_minute = convert_to_DEC(current_time.minute);
+            current_minute++;
+            current_time.minute = convert_to_BCD(current_minute);
         }
         else 
         {
-            config_minute=0;
+            current_time.minute = 0;
         }
     }
     else
     {
-        if(config_hour<23) 
+        if(current_time.hour < convert_to_BCD(23)) 
         {
-            config_hour++;
+            uint8_t current_hour = convert_to_DEC(current_time.hour);
+            current_hour++;
+            current_time.hour = convert_to_BCD(current_hour);
         }
         else 
         {
-            config_hour=0;
+            current_time.hour = 0;
         }
     }
 
     return;
 }
 
+/* The Button 9 handler terminates the configuration 
+   mode of the clock by setting the config_state 
+   value to zero. */
 void btn_0_irq_handler()
 {
     config_state = 0;
