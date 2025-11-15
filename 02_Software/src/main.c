@@ -18,6 +18,9 @@ bool show_minutes = false;
 
 
 #if ENABLE_COM
+/* In case communication with another controller
+   is enabled, this function checks for available 
+   data in the UART0 buffer. */
 void check_for_new_timeValues()
 {
         if(show_minutes)
@@ -37,6 +40,11 @@ void check_for_new_timeValues()
 }
 #endif
 
+/* This application checks, which time value to 
+   to display by checking, if the PA15/PC13 
+   jumber is bridged. If so, the PCB displays the 
+   the current hour, otherwise it displays the 
+   current minute of time. */
 void get_clk_position(bool* show_minutes)
 {
     gpio_mode_set(GPIOC, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO_PIN_13);
