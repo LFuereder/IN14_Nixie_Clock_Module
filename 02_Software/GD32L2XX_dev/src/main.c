@@ -5,21 +5,15 @@
 #include <gd32l23x.h>
 #include <gd32l23x_gpio.h>
 
-#include "../inc/IN14_nixie.h"
-#include "../inc/RTC_nixie.h"
-#include "../inc/UART_com.h"
-#include "../inc/BTN_nixie.h"
+#include "../inc/main.h"
 
-#define ever ;;
-#define ENABLE_COM true
-
-/* global object containing the current time */
+/* Global object containing the current time */
 rtc_parameter_struct current_time;
 
-/* global variable for clock configuration */
+/* Global variable for clock configuration */
 uint8_t config_state = 0;
 
-/* Nixie Clock position and status flag */
+/* Nixie-Clock position and status flag */
 bool show_minutes = false;
 
 

@@ -2,13 +2,31 @@
 
 #define USART0_RDATA_ADDRESS      ((uint32_t)&USART_RDATA(USART0))
 
+/* Global indicator, weather the controller 
+   shall display minutes or hours. */
 extern bool show_minutes;
 
+/* Rx-Buffer used to temporarily store 
+   the values sent from the other 
+   controller to this one. */
 uint8_t rxbuffer[256];
+
+/* Number of bytes received and transmitted 
+   via the UART0. */
 uint8_t rx_count = 0;
 uint8_t tx_count = 0;
+
+/* This flag is set, in case new data is 
+   available in the Rx-Buffer. This flag is 
+   checked regularly in the update_current_time() 
+   function. */
 __IO uint8_t receive_flag = 0;
 
+/* Update function called periodically in the 
+   main routine of the nixie-clock. In case the 
+   function assigns a new value to the referenced 
+   time_value, it returns true. Otherwise it 
+   returns false. */
 bool update_current_time(uint8_t* time_value)
 {
     /* if the flag is set, we received a new time value */
@@ -22,11 +40,17 @@ bool update_current_time(uint8_t* time_value)
     return false;
 }
 
+/* In case the ENABLE_COM flag is set to true, 
+   this function transmits the value from the 
+   time_value parameter to the other controller. */
 void transmit_current_time(uint8_t time_value)
 {
     usart_data_transmit(USART0, time_value);
 }
 
+/* This function configures the idle line interrupt 
+   for communication with the other controller of 
+   the clock. */
 void configure_UART_IRQ()
 {
     /* wait IDLEF set and clear it */
@@ -39,6 +63,9 @@ void configure_UART_IRQ()
     usart_interrupt_enable(USART0, USART_INT_IDLE);
 }
 
+/* This function configures the DMA-channel 1 for 
+   fast memory copy from the Rx-Buffer to the main 
+   memory and sets the receive_flag to SET. */
 void configure_DMA(void)
 {
     dma_parameter_struct dma_init_struct;
@@ -71,6 +98,10 @@ void configure_DMA(void)
     dma_channel_enable(DMA_CH1);
 }
 
+/* Entry-point of the UART configuration. This 
+   function sets the UART0 pins correctly and 
+   configures the UART mode to 8N1 with 115200 
+   baud. */
 void init_UART()
 {
     /* enable USART clock */

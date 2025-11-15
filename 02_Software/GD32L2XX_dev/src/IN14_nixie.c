@@ -1,7 +1,11 @@
 #include"../inc/IN14_nixie.h"
-#define NIXIE_MIRROR_LAYOUT false
 
-#ifndef NIXIE_MIRROR_LAYOUT
+/* Pin mapping of the correct GPIOs to the correspoing 
+   values displayed by the nixie tube. Depending, weather 
+   or not the mirror layout is used (this is the case, if 
+   the tubes are mounted on the back of the PCB) the mapping 
+   changes accordingly. */
+#if !NIXIE_MIRROR_LAYOUT
 const nixie_Pindef_T NIXIE_1_PINS[12] =
 {
     (nixie_Pindef_T){.PORT=GPIOB, .PIN=GPIO_PIN_14},    // 0
@@ -35,7 +39,12 @@ const nixie_Pindef_T NIXIE_1_PINS[12] =
 };
 #endif
 
-#ifndef NIXIE_MIRROR_LAYOUT
+/* Pin mapping of the correct GPIOs to the correspoing 
+   values displayed by the nixie tube. Depending, weather 
+   or not the mirror layout is used (this is the case, if 
+   the tubes are mounted on the back of the PCB) the mapping 
+   changes accordingly. */
+#if !NIXIE_MIRROR_LAYOUT
 const nixie_Pindef_T NIXIE_2_PINS[12] =
 {
     (nixie_Pindef_T){.PORT=GPIOA, .PIN=GPIO_PIN_3},     // 0
@@ -69,7 +78,9 @@ const nixie_Pindef_T NIXIE_2_PINS[12] =
 };
 #endif
 
-void init_pins(enum nixie_tube tube)
+/* Initializes DIR, DEN and DATA registers 
+   for all pins of the tube. */
+static void init_pins(enum nixie_tube tube)
 {
     if(tube == NIXIE_IN14_1)
     {
@@ -170,6 +181,9 @@ void init_pins(enum nixie_tube tube)
     }
 }
 
+/* Enables the clock of and all necessary 
+   registers for the pins connected to the 
+   nixie tube. */
 void init_nixie(enum nixie_tube tube)
 {
     if(tube == NIXIE_IN14_1)
@@ -190,6 +204,8 @@ void init_nixie(enum nixie_tube tube)
     init_pins(tube);
 }
 
+/* Resets all pins associated with the tube 
+   passed as parameter to the function. */
 void reset_tube(enum nixie_tube tube)
 {
     if(tube == NIXIE_IN14_1)
@@ -227,6 +243,13 @@ void reset_tube(enum nixie_tube tube)
     }
 }
 
+/* Display Functions */
+
+/* This function uses the time parameter, 
+   as well as the display value flag, in 
+   order to calculate the time value back 
+   from BCD-format and display the decimal 
+   and digit value on the nixie tubes. */
 void display_time(rtc_parameter_struct * time, bool show_minutes)
 {
     uint8_t decimal;
@@ -243,7 +266,7 @@ void display_time(rtc_parameter_struct * time, bool show_minutes)
         digit = (time->hour % 16);
     }
 
-#ifndef NIXIE_MIRROR_LAYOUT
+#if !NIXIE_MIRROR_LAYOUT
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
     gpio_bit_set(NIXIE_2_PINS[digit].PORT, NIXIE_2_PINS[digit].PIN);
 #else
@@ -252,12 +275,15 @@ void display_time(rtc_parameter_struct * time, bool show_minutes)
 #endif
 }
 
+/* This function takes the number parameter 
+   directly and displays it on the tubes without 
+   a conversion from BCD to decimal. */
 void display_number(uint8_t number)
 {
     uint8_t decimal = (number / 10);
     uint8_t digit = (number % 10);
 
-#ifndef NIXIE_MIRROR_LAYOUT
+#if !NIXIE_MIRROR_LAYOUT
     gpio_bit_set(NIXIE_1_PINS[decimal].PORT, NIXIE_1_PINS[decimal].PIN);
     gpio_bit_set(NIXIE_2_PINS[digit].PORT, NIXIE_2_PINS[digit].PIN);
 #else

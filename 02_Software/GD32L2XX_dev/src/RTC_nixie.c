@@ -3,11 +3,18 @@
 #define RTC_CLOCK_SOURCE_LXTAL
 #define BKP_VALUE    0x32F0
 
+/* Default Pre-Scaler values, globally set to zero */
 __IO uint32_t prescaler_a = 0, prescaler_s = 0;
 
+/* Global error-code to assert during the 
+   initialization of the RTC. */
 ErrStatus status;
 
-ErrStatus rtc_setup(rtc_parameter_struct current_time)
+/* Assigns default values to the RTC parameter. For the 
+   current hour, minute and second, it takes the values 
+   from the parameter. Returns an error code other than 
+   SUCCESS, in case of an error. */
+static ErrStatus rtc_setup(rtc_parameter_struct current_time)
 {
     rtc_parameter_struct rtc_initparam = {};
     rtc_initparam.factor_asyn = prescaler_a;
@@ -19,7 +26,7 @@ ErrStatus rtc_setup(rtc_parameter_struct current_time)
 
     rtc_initparam.hour = current_time.hour;
     rtc_initparam.minute = current_time.minute;
-    rtc_initparam.second = 0;
+    rtc_initparam.second = current_time. second;
 
     ErrStatus status = rtc_init(&rtc_initparam);
 
@@ -32,7 +39,10 @@ ErrStatus rtc_setup(rtc_parameter_struct current_time)
     return status;
 }
 
-ErrStatus RTC_pre_config()
+/* Activates the clock source from the external 
+   oxcillator. This function assigns new values 
+   to the prescaler-variables and starts the RTC. */
+   static ErrStatus RTC_pre_config()
 {
     /* activate LXTAL oscillator and verify stable functionality */
     rcu_osci_on(RCU_LXTAL);
@@ -50,6 +60,10 @@ ErrStatus RTC_pre_config()
     return status;
 }
 
+/* Entry-point of the initialization of the RTC. This 
+   function assigns all values to the RTC registers 
+   and assigns the hour, minute and second values from 
+   the current_time parameter. */
 void init_RTC(rtc_parameter_struct current_time)
 {
     /* enable PMU and BKP clock */

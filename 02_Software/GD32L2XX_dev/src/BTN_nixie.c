@@ -1,22 +1,15 @@
 #include "../inc/BTN_nixie.h"
 
 #define SYSCTL_EXTI_SS1_PB4     0x40010000U
-#define ever ;;
 
-#define ENABLE_COM true
-
-#define BTN_0_PRIORITY 1
-#define BTN_1_PRIORITY 2
-#define BTN_2_PRIORITY 2
-#define BTN_3_PRIORITY 3
-
-/* global variables for clock configuration */
+/* Global variables for clock configuration */
 extern uint8_t config_state;
 extern rtc_parameter_struct current_time; 
 
-/* global indicator, weather the controller 
+/* Global indicator, weather the controller 
    shall display minutes or hours. */
 extern bool show_minutes;
+
 
 /* Since the RTC initialisation expects BCD format, 
    we need to adjust the number interpretation from 
@@ -38,7 +31,6 @@ static uint8_t convert_to_DEC(uint8_t number)
     uint8_t digit = (number % 16);
     return decimal + digit;
 }
-
 
 /* The Button 3 handler serves as a configuration 
    mode for the clock. If the button is tapped, the 
@@ -150,14 +142,19 @@ void btn_0_irq_handler()
     return;
 }
 
-
-void configure_btn_irq(exti_line_enum linex)
+/* Initializes and enables the EXTI-IRQ for the line 
+   of pins passed as parameter. */
+static void configure_btn_irq(exti_line_enum linex)
 {
     exti_init(linex, EXTI_INTERRUPT, EXTI_TRIG_FALLING);
     exti_flag_clear(linex);
     exti_interrupt_enable(linex);
 }
 
+/* Entry function, which initializes and enables all 
+   buttons on the nixie watch pcb. Furthermore, enables 
+   the external interrupts to call the handler of each 
+   button. */
 void init_buttons()
 {
     RCU_APB2EN |= 0x01;
