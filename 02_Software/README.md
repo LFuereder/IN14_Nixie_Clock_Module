@@ -31,7 +31,7 @@ In combination with the cortex-debug plugin in Visual Studio Code, we can direct
 The software design is intended to be as simple as possible and provide the clock configuration asynchronously through interrupt service routines, while the display of the current time is managed in the main routine.
 
 <p align="center">
-<img src="../03_Datasheets/Images/SW_Design_Concept_Main_Routine.png" width="100%" height="100%" alt="Internal wiring of the IN-14 nixie tube clock prototype">
+<img src="../03_Datasheets/Images/SW_Design_Concept_Main_Routine.png" width="80%" height="80%" alt="Internal wiring of the IN-14 nixie tube clock prototype">
 </p>
 
 As displayed in the figure above, the main routine implementation first initializes all peripherals and after that periodically polls the RTC, as well as the UART implementation for new values to display. 
