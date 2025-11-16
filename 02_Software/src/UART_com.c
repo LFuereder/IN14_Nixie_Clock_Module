@@ -51,7 +51,7 @@ void transmit_current_time(uint8_t time_value)
 /* This function configures the idle line interrupt 
    for communication with the other controller of 
    the clock. */
-void configure_UART_IRQ()
+static void configure_UART_IRQ()
 {
     /* wait IDLEF set and clear it */
     while(RESET == usart_flag_get(USART0, USART_FLAG_IDLE)) 
@@ -66,7 +66,7 @@ void configure_UART_IRQ()
 /* This function configures the DMA-channel 1 for 
    fast memory copy from the Rx-Buffer to the main 
    memory and sets the receive_flag to SET. */
-void configure_DMA(void)
+static void configure_DMA(void)
 {
     dma_parameter_struct dma_init_struct;
     
@@ -104,6 +104,9 @@ void configure_DMA(void)
    baud. */
 void init_UART()
 {
+    /* configure DMA channel */
+    configure_DMA();
+
     /* enable USART clock */
     rcu_periph_clock_enable(RCU_USART0);
 
@@ -130,6 +133,10 @@ void init_UART()
     usart_transmit_config(USART0, USART_TRANSMIT_ENABLE);
     usart_dma_receive_config(USART0, USART_RECEIVE_DMA_ENABLE);
     usart_dma_transmit_config(USART0, USART_TRANSMIT_DMA_ENABLE);
-
+    
+    /* enable UART0 */
     usart_enable(USART0);
+    
+    /* configure UART Idle-Line IRQ */
+    configure_UART_IRQ();
 }

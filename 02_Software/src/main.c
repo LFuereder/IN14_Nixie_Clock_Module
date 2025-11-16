@@ -1,10 +1,3 @@
-#include <main.h>
-#include <inttypes.h>
-#include <stdbool.h>
-
-#include <gd32l23x.h>
-#include <gd32l23x_gpio.h>
-
 #include "../inc/main.h"
 
 /* Global object containing the current time */
@@ -78,9 +71,7 @@ int main(void)
 
 #if ENABLE_COM
     /* initialize the com */
-    configure_DMA();
     init_UART();
-    configure_UART_IRQ();
 #endif
 
     /* initialize buttons */

@@ -1,6 +1,12 @@
 #ifndef __main_h__
 #define __main_h__
 
+#include <inttypes.h>
+#include <stdbool.h>
+
+#include <gd32l23x.h>
+#include <gd32l23x_gpio.h>
+
 #include "watch_config.h"
 #include "IN14_nixie.h"
 #include "RTC_nixie.h"
