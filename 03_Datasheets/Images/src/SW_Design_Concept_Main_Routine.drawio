@@ -1,0 +1,168 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram name="Page-1" id="jlD031I0ZIH0GPTFrmii">
+    <mxGraphModel dx="1114" dy="1091" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-41" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="430" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-33" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="290" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-27" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="210" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-25" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="460" y="150" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-1" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="320" y="90" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="325" y="95" width="30" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-3" value="Start" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="320" y="70" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-4" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="5_Xd9bYYOf5CTqHsl_Nh-1" target="5_Xd9bYYOf5CTqHsl_Nh-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="340" y="210" as="sourcePoint" />
+            <mxPoint x="340" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-5" value="assign default values" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="280" y="160" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-6" value="initialize nixie tubes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="280" y="220" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-7" value="initialize UART, GPIOs and RTC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="280" y="280" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5_Xd9bYYOf5CTqHsl_Nh-5" target="5_Xd9bYYOf5CTqHsl_Nh-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="230" as="sourcePoint" />
+            <mxPoint x="430" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="339.86" y="250" as="sourcePoint" />
+            <mxPoint x="339.86" y="280" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="340" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-10" value="" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="330" y="340" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-11" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5_Xd9bYYOf5CTqHsl_Nh-7" target="5_Xd9bYYOf5CTqHsl_Nh-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="300" as="sourcePoint" />
+            <mxPoint x="430" y="250" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-12" value="while(true)" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="270" y="340" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-14" value="reset nixie tubes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="390" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-15" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5_Xd9bYYOf5CTqHsl_Nh-10" target="5_Xd9bYYOf5CTqHsl_Nh-14">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="330" as="sourcePoint" />
+            <mxPoint x="440" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-16" value="check for new data from the UART" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="440" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-17" value="read current time from RTC" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="490" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-18" value="display current time on the nixie tubes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="280" y="540" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-19" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="339.8" y="420" as="sourcePoint" />
+            <mxPoint x="339.8" y="440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-20" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="339.9" y="470" as="sourcePoint" />
+            <mxPoint x="339.9" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-21" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontStyle=1" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="339.9" y="520" as="sourcePoint" />
+            <mxPoint x="339.9" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-22" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5_Xd9bYYOf5CTqHsl_Nh-18" target="5_Xd9bYYOf5CTqHsl_Nh-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="380" y="530" as="sourcePoint" />
+            <mxPoint x="430" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="340" y="600" />
+              <mxPoint x="440" y="600" />
+              <mxPoint x="440" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-23" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="175" as="sourcePoint" />
+            <mxPoint x="450" y="175" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-24" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 10px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;If not otherwise configured, the default value for the time is zero.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="150" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-26" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;The nixie tube configuration initializes the GPIOs for each tube according to the layout-spec (see&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; font-size: 10px;&quot;&gt;NIXIE_MIRROR_LAYOUT flag in watch_config.h)&lt;/span&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="210" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-28" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="250" y="160" width="20" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-29" value="" style="shape=curlyBracket;whiteSpace=wrap;html=1;rounded=1;labelPosition=left;verticalLabelPosition=middle;align=right;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="250" y="340" width="20" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-30" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="240" as="sourcePoint" />
+            <mxPoint x="450" y="245" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-32" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;If ENABLE_COM is set to false, the UART and DMA are not configured, in order to use the board standalone.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="290" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-34" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="300" as="sourcePoint" />
+            <mxPoint x="450" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-35" value="Initialization Phase" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="150" y="225" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-36" value="Main Routine" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="170" y="455" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-37" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 10px;&quot;&gt;Same as above, in case ENABLE_COM is false, this step is skipped.&lt;/span&gt;&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="430" width="150" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5_Xd9bYYOf5CTqHsl_Nh-38" value="" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="455" as="sourcePoint" />
+            <mxPoint x="450" y="455" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

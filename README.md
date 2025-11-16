@@ -1,5 +1,5 @@
 # IN14-Nixie Tube Clock Module
-This project contains the shematics, software implementation and documentation for a clock displaying the current time on nixie-tubes. The clock utilizes a GigaDevices GD32L233 microcontroller (ARM Cortex-M33), which triggers the displayed digits in the tubes via voltage-domain separation through LTV-352T optocouplers. 
+This project contains the schematics, software implementation and documentation for a clock displaying the current time on nixie-tubes. The clock utilizes a GigaDevices GD32L233 microcontroller (ARM Cortex-M33), which triggers the displayed digits in the tubes via voltage-domain separation through LTV-352T optocouplers. 
 
 The current design is planned to display hours and minutes, but it can be extended to display the seconds as well. 
 
@@ -29,4 +29,4 @@ For the wiring between the modules and the DCDC-converter please consider the fo
 Since this is a prototype, we used dupont crimp connectors and wago cage clamps. In a finished product these could be replaced by fixed/soldered wires.
 
 # Contributing
-I would like to thank [@LStromaier](https://github.com/LStrohmaier) for working along side me at this project and reviewing the hardware and software implemenatations. 
+I would like to thank [@LStromaier](https://github.com/LStrohmaier) for working along side me on this project and reviewing most of the hardware and software implemenatations. 
