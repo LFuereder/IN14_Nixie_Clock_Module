@@ -26,3 +26,20 @@ The footprints located in the subfolder `footprints.pretty/` (default name in Ki
 
 # Nixie-Tube Socket
 In order to provide a universal socket for the IN-14 nixie-tubes, the subfolder `socket/` contains an openSCAD script, as well as the STL file for the 3D printable socket. In combination with [female connector pins](https://www.amazon.de/dp/B0C1GNPGRV) the socket can be assembled as a through-hole component, which can be soldered on the PCB.
+
+# License
+Please consider, that the entire Kicad Project is licensed unter the Apache 2.0 License
+
+Copyright 2025 Lukas Füreder
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
