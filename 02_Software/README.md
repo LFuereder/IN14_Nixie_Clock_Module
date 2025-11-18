@@ -1,5 +1,21 @@
 # Software Design
-The software implementation for the nixie clock utilizes the [Firmware Library](https://www.gd32mcu.com/en/download/7?kw=GD32L2) SVD-file (`GD32L23x.svd`) avaiable at the GigaDevices website sd well as a simple custom linker-script (`GD32L2xx.ld`), startup code (`GD32:startup.c`).
+The software implementation for the nixie clock utilizes the [Firmware Library](https://www.gd32mcu.com/en/download/7?kw=GD32L2) and  SVD-file (`GD32L23x.svd`) avaiable at the GigaDevices website. Furthermore, the repository contains a simple custom linker-script (`GD32L2xx.ld`), startup code (`GD32:startup.c`) for the GD32L2xx microcontroller.
+
+The structure of the `02_Software` folder is as follows:
+```
+02_Software/
+|-- .vscode/
+|-- CMSIS/
+|-- inc/
+|-- lib/
+|-- src/
+|-- <startup-code, linker script and SVD-file>
+```
+The Visual Studio Code (VS-Code) specific configuration files are located in the `.vscode` folder and currently contain the default install paths for compiler and debugger on Linux (Debian). Do feel free to adjust them to your own setup. The Gigadevices firmware library mentioned above is integrated into the project in the ARM Common Microcontroller Software Interface Standard (CMSIS) implementation in the  `CMSIS` folder and Hardware Abstraction Layer (HAL) for the GD32L2xx microcontroller in the `lib` folder. 
+
+The implementation for the main routine and ISRs is located in the `inc` (header files) and `src` (source files) as typically done in embedded C. 
+
+
 
 ## Getting started
 In order to build the code, please install the following prerequisites on your PC. Depending on the corresponding operating system, the installation method might differ from the one explained here. On Linux (Debian) execute the follwoing command in a terminal window:
@@ -31,7 +47,7 @@ In combination with the cortex-debug plugin in Visual Studio Code, we can direct
 The software design is intended to be as simple as possible and provide the clock configuration asynchronously through interrupt service routines, while the display of the current time is managed in the main routine.
 
 <p align="center">
-<img src="../03_Datasheets/Images/SW_Design_Concept_Main_Routine.png" width="80%" height="80%" alt="Internal wiring of the IN-14 nixie tube clock prototype">
+<img src="../03_Datasheets/Images/SW_Design_Concept_Main_Routine.png" width="75%" height="75%" alt="Internal wiring of the IN-14 nixie tube clock prototype">
 </p>
 
 As displayed in the figure above, the main routine implementation first initializes all peripherals and after that periodically polls the RTC, as well as the UART implementation for new values to display. 
@@ -40,7 +56,7 @@ As displayed in the figure above, the main routine implementation first initiali
 Through pushing buttons BTN-3 to BTN-0, the current time can be set in the watch. The implementation for this works as follows.
 
 <p align="center">
-<img src="../03_Datasheets/Images/Time_Configuration.png" width="100%" height="100%" alt="Configuration steps for setting the time in the clock">
+<img src="../03_Datasheets/Images/Time_Configuration.png" width="80%" height="80%" alt="Configuration steps for setting the time in the clock">
 </p>
 
 As displayed in the figure above, the nixie-clock switches into the configuration mode by pushing button 3. In this IRQ-routine the config_state flag is set to 1 and iterates over a display of the current configuration value until button 0 is pressed to reset the config_state flag back to 0 and terminate the configuration mode. 
